@@ -1,0 +1,26 @@
+@use '../../base'
+
+#Welcome
+    @include base.flex(35%,80%)
+    justify-content: space-around
+    @include base.border-radius
+    background-color: rgba(0, 0, 0, 0.8)
+    
+    min-width: 400px
+    *
+        color: base.$dark-color
+    #Welcome-top
+        @include base.flex(100%,auto)
+        align-items: center
+        img
+            @include base.element(auto,300px)
+        h1
+            font-size: 60px
+    #Welcome-bottom
+        @include base.flex(100%,auto)
+        button
+            @include base.button(100%,50px)
+            font-weight: bold
+            font-size: 25px
+            background: none
+            margin-bottom: 10px

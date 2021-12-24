@@ -1,0 +1,42 @@
+$light-color: #EAECEE
+$dark-color: #5e2a95
+
+$border-thickness: 3px 
+
+@mixin border($color:$dark-color,$thickness: $border-thickness,$style:solid)
+  border: $thickness $style $color
+
+@mixin border-radius($radius:10px)
+  border-radius: $radius
+
+@mixin element($w: auto, $h: auto)
+  width: $w
+  height: $h
+
+@mixin flex($w: auto, $h: auto,$direction: column)
+  @include element($w, $h)
+  display: flex
+  justify-content: center
+  align-items: center
+  flex-direction: $direction
+
+@mixin modal($w: auto, $h: auto)
+  @include flex($w, $h)
+  @include border-radius()
+  background: $dark-color
+  box-shadow: 0px 0px 20px 1px rgba(0, 0, 0, 0.5)
+
+@mixin button($w: auto, $h: auto,$pri-color: $dark-color, $sec-color: $light-color)
+  @include element($w, $h)
+  @include border($pri-color)
+  @include border-radius()
+  padding: 10px
+  background: $sec-color
+  color: $pri-color
+  &:hover
+    background: $pri-color
+    color: $sec-color
+    @include border($sec-color)
+  &:active
+    @include border($sec-color,$border-thickness * 1.5)
+    font-weight: bold
