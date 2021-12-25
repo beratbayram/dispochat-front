@@ -24,3 +24,19 @@
         line-height: 20px
         font-size: 20px
         border-color: base.$dark-color
+    main
+      @include base.flex(100%,auto)
+      padding: 10px
+      form
+        @include base.flex(100%,auto)
+        button
+          @include base.button(40%, 35px)
+          padding: 0
+        input
+          @include base.element(100%,auto)
+          @include base.border-radius()
+          @include base.border()
+          text-align: center
+          padding: 7px
+          margin: 5px
+          color: black
