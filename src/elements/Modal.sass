@@ -1,0 +1,26 @@
+@use '../base'
+
+.Modal
+  @include base.flex(100vw, 100vh)
+  z-index: 1
+  top: 0
+  position: fixed
+  background-color: rgba(0, 0, 0, 0.8)
+
+  .Modal-inner
+    @include base.flex(40%, auto)
+    @include base.border-radius()
+    background-color: base.$dark-color
+
+    header
+      @include base.flex(100%, auto, row)
+      padding: 10px
+      border-bottom: 1px solid base.$light-color
+      justify-content: space-between
+
+      button
+        @include base.button(30px, 30px)
+        padding: 0
+        line-height: 20px
+        font-size: 20px
+        border-color: base.$dark-color

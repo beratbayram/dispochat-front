@@ -1,22 +1,7 @@
-import {useState} from 'react';
 import {usePortals} from "react-portal-hook";
-
-function Modal({title, children, closeModal}) {
-    return (
-        <div id="modal">
-            <header>
-                <h2>{title}</h2>
-                <button type="button" onClick={closeModal}>X</button>
-            </header>
-            <main>
-                {children}
-            </main>
-        </div>
-    )
-}
+import Modal from "../../elements/Modal";
 
 export default function CreateRoom() {
-    const [isModalOpen, setIsModalOpen] = useState(false)
     const portalManager = usePortals();
 
     return (
