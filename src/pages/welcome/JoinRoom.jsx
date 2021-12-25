@@ -1,8 +1,10 @@
 import {usePortals} from "react-portal-hook";
 import Modal from "../../elements/Modal";
 import axios from "axios";
+import generateUniqueKey from "../../utils/utils";
 
 function JoinRoomModal() {
+    generateUniqueKey();
     async function handleSubmit(event) {
         event.preventDefault();
         const nickName = event?.target?.elements?.inputNickname?.value
