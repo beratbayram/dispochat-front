@@ -12,5 +12,4 @@ export async function generateFingerprintId() {
     })
     const response = await fp.get();
     return response.visitorId;
-
 }
