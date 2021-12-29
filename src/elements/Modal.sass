@@ -4,6 +4,7 @@
   @include base.flex(100vw, 100vh)
   z-index: 1
   top: 0
+  left: 0
   position: fixed
   background-color: rgba(0, 0, 0, 0.8)
 
@@ -17,7 +18,7 @@
       padding: 10px
       border-bottom: 1px solid base.$light-color
       justify-content: space-between
-
+      color: base.$light-color
       button
         @include base.button(30px, 30px)
         padding: 0
@@ -33,7 +34,7 @@
           @include base.button(40%, 35px)
           padding: 0
         input
-          @include base.element(100%,auto)
+          @include base.element(90%,auto)
           @include base.border-radius()
           @include base.border()
           text-align: center

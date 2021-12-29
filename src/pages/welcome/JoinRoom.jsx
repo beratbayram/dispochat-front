@@ -1,29 +1,16 @@
-import {usePortals} from "react-portal-hook";
 import Modal from "../../elements/Modal";
-import axios from "axios";
-import {generateFingerprintId,generateIP} from "../../utils/utils";
+import Api from "../../utils/Api";
+import {useState} from "react";
 
 function JoinRoomModal() {
-    generateFingerprintId().then(console.log)
     async function handleSubmit(event) {
         event.preventDefault();
         const nickName = event?.target?.elements?.inputNickname?.value
         const roomId = event?.target?.elements?.inputRoomId?.value
-        const uniqueKey = nickName.length;
-        const payload = {
-            uniqueKey: uniqueKey,
-            nickName: nickName
-        }
-        const payload2 = {
-            uniqueKey: uniqueKey,
-            roomId: roomId
-        }
-
         try {
-            const responseFromCreateChatter = await axios.post('http://localhost:8080/createChatter/', payload)
-            const responseFromJoinRoom = await axios.post('http://localhost:8080/joinRoom/', payload2)
-            console.log(responseFromJoinRoom)
-        }catch (error) {
+            console.log(await Api.createChatter(nickName));
+            console.log(await Api.createRoom(nickName,roomId));
+        } catch (error) {
             console.error(error)
         }
     }
@@ -40,13 +27,14 @@ function JoinRoomModal() {
 }
 
 export default function JoinRoom() {
-    const {open: openPortal} = usePortals();
+    const [isModalOpen, setModalOpen] = useState(false);
+
     return (
         <div id="JoinRoom">
-            <button onClick={() =>
-                openPortal(p => <Modal title="Join Room" closeModal={p.close}><JoinRoomModal/></Modal>)
-            }>Join A Room
-            </button>
+            <button className="Welcome-button" onClick={() => setModalOpen(true)}>Join a Room </button>
+            <Modal state={[isModalOpen,setModalOpen]} title="Create a Room">
+                <JoinRoomModal/>
+            </Modal>
         </div>
     )
 

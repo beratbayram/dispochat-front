@@ -1,43 +1,49 @@
-import {usePortals} from "react-portal-hook";
 import Modal from "../../elements/Modal";
-import axios from "axios";
+import Api from "../../utils/Api";
+import {useState} from "react";
+import {Link} from "react-router-dom";
 
 function CreateRoomModal() {
+    const [roomId, setRoomId] = useState('');
+
     async function handleSubmit(event) {
         event.preventDefault();
         const nickName = event?.target?.elements?.inputNickname?.value
-        const uniqueKey = nickName.length;
-        const payload = {
-            uniqueKey: uniqueKey,
-            nickName: nickName
-        }
-        try {
-            const responseFromCreateChatter = await axios.post('http://localhost:8080/createChatter/', payload)
-            const responseFromCreateRoom = await axios.post('http://localhost:8080/createRoom/', uniqueKey)
-            console.log(responseFromCreateRoom)
-        }catch (error) {
-            console.error(error)
+        const {response, uniqueKey} = await Api.createChatter(nickName);
+        console.debug('createChatter response:', response)
+        if (response === 'Registered Successfully') {
+            const response = await Api.createRoom(uniqueKey)
+            console.debug('createRoom response:', response)
+            setRoomId('Room ID: ' + response)
         }
     }
 
-    return (
-        <form onSubmit={handleSubmit}>
-            <label htmlFor="inputNickname">Nick Name</label>
-            <input id="inputNickname" name="inputNickname"/>
-            <button type="submit">Create</button>
-        </form>
-    )
+    if (roomId === "")
+        return (
+            <form onSubmit={handleSubmit}>
+                <label htmlFor="inputNickname">Nick Name</label>
+                <input id="inputNickname" name="inputNickname"/>
+                <button type="submit">Create</button>
+            </form>
+        )
+    else
+        return (
+            <>
+                <p>{roomId}</p>
+                <Link to={'chat/' + roomId}>Invoices</Link>
+            </>
+        )
 }
 
 export default function CreateRoom() {
-    const {open: openPortal} = usePortals();
+    const [isModalOpen, setModalOpen] = useState(false);
 
     return (
         <div id="CreateRoom">
-            <button onClick={() =>
-                openPortal(p => <Modal title="Create Room" closeModal={p.close}><CreateRoomModal/></Modal>)
-            }>Create A Room
-            </button>
+            <button className="Welcome-button" onClick={() => setModalOpen(true)}>Create a Room</button>
+            <Modal state={[isModalOpen,setModalOpen]} title="Create a Room">
+                <CreateRoomModal/>
+            </Modal>
         </div>
     )
 }
