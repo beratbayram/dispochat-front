@@ -33,6 +33,13 @@
         button
           @include base.button(40%, 35px)
           padding: 0
+        a
+          color: base.$dark-color
+          text-decoration: none
+          display: block
+          @include base.flex(100%,100%)
+          &:hover
+            color: base.$light-color
         input
           @include base.element(90%,auto)
           @include base.border-radius()

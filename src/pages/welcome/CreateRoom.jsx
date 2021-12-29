@@ -4,44 +4,47 @@ import {useState} from "react";
 import {Link} from "react-router-dom";
 
 function CreateRoomModal() {
-    const [roomId, setRoomId] = useState('');
+    const [roomInfo, setRoomInfo] = useState(null);
 
     async function handleSubmit(event) {
         event.preventDefault();
-        const nickName = event?.target?.elements?.inputNickname?.value
+        const nickName = event?.target?.elements?.nickName?.value
         const {response, uniqueKey} = await Api.createChatter(nickName);
         console.debug('createChatter response:', response)
         if (response === 'Registered Successfully') {
             const response = await Api.createRoom(uniqueKey)
             console.debug('createRoom response:', response)
-            setRoomId('Room ID: ' + response)
+            setRoomInfo({nickName: nickName, roomId: response})
         }
     }
 
-    if (roomId === "")
+    if (roomInfo === null)
         return (
             <form onSubmit={handleSubmit}>
-                <label htmlFor="inputNickname">Nick Name</label>
-                <input id="inputNickname" name="inputNickname"/>
+                <label htmlFor="nickName">Nick Name</label>
+                <input id="nickName" name="nickName"/>
                 <button type="submit">Create</button>
             </form>
         )
     else
         return (
-            <>
-                <p>{roomId}</p>
-                <Link to={'chat/' + roomId}>Invoices</Link>
-            </>
+            <form>
+                <p>{`Room ID: ${roomInfo.roomId}`}</p>
+                <button type="button">
+                    <Link to={`/room?nickName=${roomInfo.nickName}&roomId=${roomInfo.roomId}`}>
+                        Go to the Room
+                    </Link>
+                </button>
+            </form>
         )
 }
 
 export default function CreateRoom() {
     const [isModalOpen, setModalOpen] = useState(false);
-
     return (
         <div id="CreateRoom">
             <button className="Welcome-button" onClick={() => setModalOpen(true)}>Create a Room</button>
-            <Modal state={[isModalOpen,setModalOpen]} title="Create a Room">
+            <Modal state={[isModalOpen, setModalOpen]} title="Create a Room">
                 <CreateRoomModal/>
             </Modal>
         </div>
