@@ -1,5 +1,8 @@
-import './Room.sass';
 import {Navigate, useSearchParams} from "react-router-dom";
+import RoomAside from "./RoomAside";
+import RoomMain from "./RoomMain";
+
+import  './Room.sass'
 
 export default function Room() {
     const [searchParams, /*setSearchParams*/] = useSearchParams();
@@ -9,7 +12,8 @@ export default function Room() {
 
     return (
         <div id="Room">
-            <p>{nickName + roomId}</p>
+            <RoomAside nickName={nickName} roomId={roomId}/>
+            <RoomMain/>
         </div>
     )
 }

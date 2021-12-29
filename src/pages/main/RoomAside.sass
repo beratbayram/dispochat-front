@@ -1,0 +1,53 @@
+@use '../../base'
+
+aside
+  @include base.flex(30%, 100%)
+  border-right: 1px solid base.$dark-color
+
+  #aside-top
+    @include base.flex(100%, 40%)
+
+    img
+      @include base.element(50%, auto)
+
+    h1, em
+      color: base.$dark-color
+      font-size: 35px
+
+  #aside-middle
+    @include base.flex(100%, 40%)
+    justify-content: space-around
+
+    h2
+      font-size: 125%
+      color: base.$dark-color
+
+    table
+      table-layout: fixed
+      @include base.element(100%, auto)
+
+      tr
+        &#nickNames
+          text-decoration: underline base.$dark-color
+
+      td
+        @include base.element(50%, auto)
+        text-align: center
+        padding: 1%
+        overflow: hidden
+
+        img
+          @include base.element(50%, auto)
+          margin: 0 auto
+
+        p
+          max-width: 100%
+          color: base.$light-color
+
+  #aside-bottom
+    @include base.flex(100%, 20%)
+    justify-content: space-evenly
+
+    button
+      @include base.button
+      background-color: transparent

@@ -9,22 +9,21 @@
 //translateZ: A hack to activate hardware acceleration
 @keyframes animatedBackground
   from 
-    transform: rotate(360deg) scale(2) translateZ(0)
+    transform: rotate(360deg) scale(3) translateZ(0)
   to
-    transform: rotate(0deg) scale(2) translateZ(0)
+    transform: rotate(0deg) scale(3) translateZ(0)
 
 body
-    background-color: #5e2a95
+    background-color: base.$dark-color
 
 img#background
-    @include base.element(200vmax,200vmax)
     z-index: -1
     position: fixed
     top: 0
     left: 0
     transform-origin: 50vw 50vh
     -webkit-font-smoothing: subpixel-antialiased
-    animation: animatedBackground 5s linear infinite 
+    animation: animatedBackground 20s linear infinite
 
 #site
     z-index: 0
