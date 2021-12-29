@@ -23,12 +23,12 @@ export default function RoomAside({nickName,roomId}){
                         <td><p>Berat</p></td>
                     </tr>
                     <tr>
-                        <td><p>Gölbaşı</p></td>
-                        <td><p>Sarıyer</p></td>
-                    </tr>
-                    <tr>
                         <td><p>Ankara</p></td>
                         <td><p>Istanbul</p></td>
+                    </tr>
+                    <tr>
+                        <td><p>Turkey</p></td>
+                        <td><p>Turkey</p></td>
                     </tr>
                     </tbody>
                 </table>

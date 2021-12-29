@@ -32,7 +32,7 @@ export default function JoinRoom() {
     return (
         <div id="JoinRoom">
             <button className="Welcome-button" onClick={() => setModalOpen(true)}>Join a Room </button>
-            <Modal state={[isModalOpen,setModalOpen]} title="Create a Room">
+            <Modal state={[isModalOpen,setModalOpen]} title="Join a Room">
                 <JoinRoomModal/>
             </Modal>
         </div>

@@ -2,13 +2,14 @@ import Modal from "../../elements/Modal";
 import Api from "../../utils/Api";
 import {useState} from "react";
 import {Link} from "react-router-dom";
+import {getValueFromEvent} from "../../utils/utils";
 
 function CreateRoomModal() {
     const [roomInfo, setRoomInfo] = useState(null);
 
     async function handleSubmit(event) {
         event.preventDefault();
-        const nickName = event?.target?.elements?.nickName?.value
+        const nickName = getValueFromEvent(event,'nickName');
         const {response, uniqueKey} = await Api.createChatter(nickName);
         console.debug('createChatter response:', response)
         if (response === 'Registered Successfully') {

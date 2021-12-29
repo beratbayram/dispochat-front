@@ -1,0 +1,39 @@
+@use '../../base'
+
+#Room
+  main
+    @include base.flex(70%, 100%)
+
+    #messages-panel
+      @include base.flex(100%, 90%)
+      justify-content: flex-end
+      #message-container
+        @include base.flex(100%,auto)
+
+    form
+      @include base.flex(100%, 10%, row)
+      justify-content: space-evenly
+
+      input
+        @include base.flex(90%, 60%)
+        @include base.border
+        @include base.border-radius
+        background-color: black
+        color: base.$light-color
+        padding: 0 3%
+        font-size: large
+
+        &:active, &:focus
+          outline: none
+          color: base.$light-color
+
+        &:-webkit-autofill //transparency doesn't work here
+          -webkit-box-shadow: 0 0 0 30px black inset
+          -webkit-text-fill-color: base.$light-color
+          &:hover, &:focus, &:active
+            -webkit-box-shadow: 0 0 0 30px black inset
+
+      button
+        @include base.flex(5%, 70%)
+        background-color: transparent
+        border: none

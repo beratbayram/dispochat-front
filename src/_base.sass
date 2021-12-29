@@ -1,11 +1,10 @@
 $light-color: #EAECEE
 $dark-color: #5E2A95
-@mixin bg-color()
-  background-color: rgba(0, 0, 0, 0.8)
+$bg-color: rgba(0, 0, 0, 0.8)
 
-$border-thickness: 3px
+$thickness: 1px
 
-@mixin border($color:$dark-color,$thickness: $border-thickness,$style:solid)
+@mixin border($color:$dark-color,$thickness: $thickness,$style:solid)
   border: $thickness $style $color
 
 @mixin border-radius($radius:10px)
@@ -41,6 +40,6 @@ $border-thickness: 3px
     color: $sec-color
     @include border($sec-color)
   &:active
-    @include border($sec-color, $border-thickness)
+    @include border($sec-color, $thickness)
     background-color: $sec-color
     color: $pri-color

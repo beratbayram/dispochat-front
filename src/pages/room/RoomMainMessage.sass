@@ -1,0 +1,30 @@
+@use '../../base'
+
+.RoomMainMessage
+  @include base.flex(100%, 5vh, row)
+  padding: 0 10px
+
+  &.RoomMainMessage-user
+    justify-content: flex-end
+
+  &.RoomMainMessage-notUser
+    justify-content: flex-start
+
+  .RoomMainMessageInner
+    @include base.flex(auto, 5vh, row)
+    @include base.border-radius
+    padding: 5px 10px
+
+    &.RoomMainMessageInner-user
+      background-color: base.$dark-color
+      border-bottom-right-radius: 0
+
+      p
+        color: base.$light-color
+
+    &.RoomMainMessageInner-notUser
+      background-color: base.$light-color
+      border-bottom-left-radius: 0
+
+      p
+        color: base.$dark-color

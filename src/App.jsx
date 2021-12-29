@@ -4,7 +4,7 @@ import {BrowserRouter, Route, Navigate, Routes} from "react-router-dom";
 import Welcome from './pages/welcome/Welcome';
 import bg from './assets/bg.svg';
 import Test from './Test';
-import Room from './pages/main/Room'
+import Room from './pages/room/Room'
 
 export default function App() {
     return (

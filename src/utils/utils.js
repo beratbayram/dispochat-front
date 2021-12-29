@@ -23,3 +23,7 @@ export async function generateFingerprintId() {
     const response = await fp.get(); //"olaVTN7KFP91KCrt8JRQ"
     return response.visitorId;
 }
+
+export function getValueFromEvent(event, id) {
+    return event?.target?.elements?.[id]?.value
+}
