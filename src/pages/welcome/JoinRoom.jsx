@@ -1,7 +1,7 @@
 import Modal from "../../elements/Modal";
 import Api from "../../utils/Api";
 import {useState} from "react";
-import {getValueFromEvent} from "../../utils/utils";
+import {getValueFromEvent, toastifyPromise} from "../../utils/utils";
 import {Link} from "react-router-dom";
 
 function JoinRoomModal() {
@@ -12,11 +12,20 @@ function JoinRoomModal() {
         const nickName = getValueFromEvent(event, 'inputNickname');
         const roomId = getValueFromEvent(event, 'inputRoomId');
         try {
-            const {response, fingerprint} = await Api.createChatter(nickName);
-            const {message, messageResponseType} = response;
+            const {response, fingerprint} = await toastifyPromise(Api.createChatter(nickName));
+            const {message, /*messageResponseType*/} = response;
             if (message === 'Successfully Registered!') {
-                const {message, messageResponseType} = await Api.joinRoom(nickName, fingerprint, roomId);
+                const {message, /*messageResponseType*/} = await Api.joinRoom(nickName, fingerprint, roomId);
                 setRoomInfo({nickName, message, roomId})
+
+                //TODO: Remove this mock code
+                const myPromise = new Promise((resolve, reject) => {
+                    setTimeout(() => {
+                        resolve({response:{message:"Owner accepted. Redirecting to the room..."}});
+                        //reject({message:"Owner rejected"})
+                    }, 2000);
+                });
+                await toastifyPromise(myPromise,"Waiting for an answer")
             }
         } catch (error) {
             console.error(error)

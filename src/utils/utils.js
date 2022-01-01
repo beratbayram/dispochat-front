@@ -1,5 +1,7 @@
 import axios from "axios";
 import FingerprintJS from '@fingerprintjs/fingerprintjs-pro';
+import {toast} from "react-toastify";
+import Api from "./Api";
 
 export async function generateGeoIp() {
     return {
@@ -26,4 +28,25 @@ export async function generateFingerprintId() {
 
 export function getValueFromEvent(event, id) {
     return event?.target?.elements?.[id]?.value
+}
+
+export async function toastifyPromise(func, pendingMsg, successMsg, errorMsg){
+    return toast.promise(func,{
+        pending: pendingMsg ?? "Loading...",
+        success: {
+            render(response){
+                console.log(response)
+                return (successMsg ?? "") + response?.data?.response?.message;
+            },
+            theme: "colored",
+            hideProgressBar: false
+        },
+        error: {
+            render(err){
+                return (errorMsg ?? "") + err?.data?.message
+            },
+            theme: "colored",
+            hideProgressBar: false
+        },
+    })
 }

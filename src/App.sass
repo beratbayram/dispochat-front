@@ -1,14 +1,16 @@
 @use 'base'
 
 *
-    color: base.$light-color
     box-sizing: border-box
     margin: 0
     padding: 0
 
+root
+  --toastify-color-success: base.$dark-color
+
 //translateZ: A hack to activate hardware acceleration
 @keyframes animatedBackground
-  from 
+  from
     transform: rotate(360deg) scale(3) translateZ(0)
   to
     transform: rotate(0deg) scale(3) translateZ(0)
@@ -27,4 +29,5 @@ img#background
 
 #site
     z-index: 0
+    color: base.$light-color
     @include base.flex(100vw,100vh)

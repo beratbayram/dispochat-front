@@ -2,7 +2,9 @@ import Modal from "../../elements/Modal";
 import Api from "../../utils/Api";
 import {useState} from "react";
 import {Link} from "react-router-dom";
-import {getValueFromEvent} from "../../utils/utils";
+import {getValueFromEvent, toastifyPromise} from "../../utils/utils";
+import {toast} from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 function CreateRoomModal() {
     const [roomInfo, setRoomInfo] = useState(null);
@@ -10,10 +12,10 @@ function CreateRoomModal() {
     async function handleSubmit(event) {
         event.preventDefault();
         const nickName = getValueFromEvent(event,'nickName');
-        const {response, fingerprint} = await Api.createChatter(nickName);
-        const {message, messageResponseType } = response;
+        const {response, fingerprint} = await toastifyPromise(Api.createChatter(nickName))
+        const {message,/* messageResponseType*/ } = response;
         if (message === 'Successfully Registered!') {
-            const {message, messageResponseType }  = await Api.createRoom(fingerprint)
+            const {message,/* messageResponseType*/ }  = Api.createRoom(fingerprint);
             const roomId = message.match(/\d+/)[0] //TODO: This is error-prone
             setRoomInfo({nickName,message,roomId})
         }
@@ -23,7 +25,7 @@ function CreateRoomModal() {
         return (
             <form onSubmit={handleSubmit}>
                 <label htmlFor="nickName">Nick Name</label>
-                <input id="nickName" name="nickName"/>
+                <input required id="nickName" name="nickName"/>
                 <button type="submit">Create</button>
             </form>
         )
