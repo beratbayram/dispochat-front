@@ -1,14 +1,27 @@
 @use '../../base'
+@use "sass:color"
+
+@mixin hoverTip($color)
+    .HoverTip
+      @include base.flex(auto, 5vh, row)
+      padding: 0 5px
+      p
+        color: color.adjust($color, $alpha: -0.4)
+      &:hover
+        p
+          font-weight: bold
+          color: $color
 
 .RoomMainMessage
   @include base.flex(100%, 5vh, row)
+  @include hoverTip(base.$light-color)
+  justify-content: flex-start
   padding: 0 10px
+  margin: 3px 0
 
   &.RoomMainMessage-user
-    justify-content: flex-end
-
-  &.RoomMainMessage-notUser
-    justify-content: flex-start
+    flex-direction: row-reverse
+    @include hoverTip(base.$dark-color)
 
   .RoomMainMessageInner
     @include base.flex(auto, 5vh, row)

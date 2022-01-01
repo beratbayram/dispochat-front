@@ -7,19 +7,29 @@ export default function RoomMain() {
     const messages = [
         {
             isFromUser: true,
-            msg: 'Merhaba'
+            msg: 'Hi',
+            time: '11:35'
         },
         {
             isFromUser: false,
-            msg: 'Merhaba'
+            msg: 'Hey 👋',
+            time: '11:35'
+
         },
         {
             isFromUser: true,
-            msg: 'Şu çok gizli işi konuşalım mı?'
+            msg: 'I am sending the private key right now. Please keep it to yourself.',
+            time: '11:36'
+        },
+        {
+            isFromUser: true,
+            msg: 'MIGeMA0GCSqGSIb3DQEBAQUAA4GMADCBiAKBgGewOB1rGsUll1yYYAkTzM/LGrJp=',
+            time: '11:37'
         },
         {
             isFromUser: false,
-            msg: 'Tamam başlayalım'
+            msg: 'Definitely. No worries 👍',
+            time: '11:37'
         }
     ]
 
@@ -34,7 +44,7 @@ export default function RoomMain() {
                 <div id="message-container">
                     { //TODO: change index to an actual key
                         messages.map((elem, index) =>
-                            <RoomMainMessage key={index} isFromUser={elem.isFromUser} msg={elem.msg}/>)
+                            <RoomMainMessage key={index} isFromUser={elem.isFromUser} msg={elem.msg} time={elem.time}/>)
                     }
                 </div>
             </div>

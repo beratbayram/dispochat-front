@@ -10,12 +10,12 @@ function CreateRoomModal() {
     async function handleSubmit(event) {
         event.preventDefault();
         const nickName = getValueFromEvent(event,'nickName');
-        const {response, uniqueKey} = await Api.createChatter(nickName);
-        console.debug('createChatter response:', response)
-        if (response === 'Registered Successfully') {
-            const response = await Api.createRoom(uniqueKey)
-            console.debug('createRoom response:', response)
-            setRoomInfo({nickName: nickName, roomId: response})
+        const {response, fingerprint} = await Api.createChatter(nickName);
+        const {message, messageResponseType } = response;
+        if (message === 'Successfully Registered!') {
+            const {message, messageResponseType }  = await Api.createRoom(fingerprint)
+            const roomId = message.match(/\d+/)[0] //TODO: This is error-prone
+            setRoomInfo({nickName,message,roomId})
         }
     }
 
@@ -30,7 +30,7 @@ function CreateRoomModal() {
     else
         return (
             <form>
-                <p>{`Room ID: ${roomInfo.roomId}`}</p>
+                <p>{roomInfo.message}</p>
                 <button type="button">
                     <Link to={`/room?nickName=${roomInfo.nickName}&roomId=${roomInfo.roomId}`}>
                         Go to the Room
