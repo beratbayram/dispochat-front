@@ -1,7 +1,7 @@
 import Modal from "../../elements/Modal";
 import Api from "../../utils/Api";
 import {useState} from "react";
-import {Link} from "react-router-dom";
+import {Link,Navigate} from "react-router-dom";
 import {getValueFromEvent, toastifyPromise} from "../../utils/utils";
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -12,7 +12,7 @@ function CreateRoomModal() {
         event.preventDefault();
         const nickName = getValueFromEvent(event,'nickName');
         const {response, fingerprint} = await toastifyPromise(Api.createChatter(nickName))
-        const {message, messageResponseType } = response;
+        const {/*message,*/ messageResponseType } = response;
         if (messageResponseType === 'SUCCESS') {
             const {message,/* messageResponseType*/ }  = await toastifyPromise(Api.createRoom(fingerprint));
             const roomId = parseInt(message.match(/\d+/)[0]) //TODO: This is error-prone
@@ -36,6 +36,7 @@ function CreateRoomModal() {
                     <Link to={`/room?nickName=${roomInfo.nickName}&roomId=${roomInfo.roomId}`}>
                         Go to the Room
                     </Link>
+                    <Navigate to={`/room?nickName=${roomInfo.nickName}&roomId=${roomInfo.roomId}`}/>
                 </button>
             </form>
         )

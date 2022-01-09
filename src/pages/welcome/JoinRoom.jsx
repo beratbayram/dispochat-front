@@ -2,7 +2,7 @@ import Modal from "../../elements/Modal";
 import Api from "../../utils/Api";
 import {useState} from "react";
 import {getValueFromEvent, toastifyPromise} from "../../utils/utils";
-import {Link} from "react-router-dom";
+import {Link, Navigate} from "react-router-dom";
 
 function JoinRoomModal() {
     const [roomInfo, setRoomInfo] = useState(null);
@@ -15,24 +15,15 @@ function JoinRoomModal() {
             const {response, fingerprint} = await toastifyPromise(Api.createChatter(nickName));
             const {/*message*/ messageResponseType} = response;
             if (messageResponseType === 'SUCCESS') {
-                const {message, /*messageResponseType*/} = await Api.joinRoom(nickName, fingerprint, roomId);
+                const {message, /*messageResponseType*/} = await toastifyPromise(Api.joinRoom(nickName, fingerprint, roomId));
                 setRoomInfo({nickName, message, roomId})
-
-                //TODO: Remove this mock code
-                const myPromise = new Promise((resolve, reject) => {
-                    setTimeout(() => {
-                        resolve({response:{message:"Owner accepted. Redirecting to the room..."}});
-                        //reject({message:"Owner rejected"})
-                    }, 2000);
-                });
-                await toastifyPromise(myPromise)
             }
         } catch (error) {
             console.error(error)
         }
     }
 
-    if (roomInfo?.message.match(/Your Join Request To Room "\d+" Has Been Sent to Owner of the Room/g))
+    if (roomInfo?.message.match(/Your join request to room \d+ has been sent to owner of the room/g))
         return (
             <form>
                 <p> {roomInfo.message} </p>
@@ -46,6 +37,7 @@ function JoinRoomModal() {
                     <Link to={`/room?nickName=${roomInfo.nickName}&roomId=${roomInfo.roomId}`}>
                         Go to the Room
                     </Link>
+                    <Navigate to={`/room?nickName=${roomInfo.nickName}&roomId=${roomInfo.roomId}`}/>
                 </button>
             </form>
         )

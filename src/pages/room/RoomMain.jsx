@@ -1,6 +1,6 @@
 import './RoomMain.sass';
 import send from '../../assets/send.png'
-import {getValueFromEvent} from "../../utils/utils";
+import {getFingerprintId, getValueFromEvent} from "../../utils/utils";
 import RoomMainMessage from "./RoomMainMessage";
 import Socket from "../../utils/Socket";
 import {useEffect} from "react";
@@ -26,7 +26,8 @@ export default function RoomMain({nickName, roomId}) {
 
     function handleSubmit(event) {
         event.preventDefault();
-        console.log(getValueFromEvent(event, 'inputBox'))
+        const msg = getValueFromEvent(event, 'inputBox');
+        Socket.sendMsg(msg);
     }
 
     return (

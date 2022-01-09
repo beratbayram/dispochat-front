@@ -1,34 +1,28 @@
 import {Stomp} from "@stomp/stompjs";
 import axios from "axios";
+import {getFingerprintId} from "./utils";
 
 export default class Socket {
     static url = "ws://localhost:8080"
+    static fingerprint
     static stompClient;
     static selectedUser;
 
-    static connectToChat(uniqueKey) {
+    static connectToChat() {
         Socket.stompClient = Stomp.client(Socket.url + '/chat');
         Socket.stompClient.debug = console.debug
-        Socket.stompClient.connect({}, (frame) => {
-            Socket.stompClient.subscribe("/topic/messages/" + uniqueKey, (response) => {
-                let data = JSON.parse(response.body);
-                console.log(data.message, data.fromLogin);
-            });
+        Socket.stompClient.connect({}, async (frame) => {
+            Socket.fingerprint = await getFingerprintId();
+            const {id,unsubscribe} = Socket.stompClient.subscribe("/topic/messages/" + Socket.fingerprint, console.log);
         });
+        Socket.stompClient.activate();
     }
 
-    static sendMsg(from, text) {
-        Socket.stompClient.send("/app/chat/" + Socket.selectedUser, {}, JSON.stringify({
-            fromLogin: from,
-            message: text
+    static sendMsg(msg) {
+        Socket.stompClient.send("/app/chat/" + Socket.fingerprint, {}, JSON.stringify({
+            message: msg,
+            senderUniqueKey: Socket.fingerprint
         }));
-    }
-
-    static async registration() {
-        let userName = document.getElementById("userName").value;
-        await axios.get(Socket.url + "/registration/" + userName, (response) => {
-            Socket.connectToChat(userName);
-        })
     }
 
     static selectUser(userName) {
