@@ -3,7 +3,6 @@ import Api from "../../utils/Api";
 import {useState} from "react";
 import {Link} from "react-router-dom";
 import {getValueFromEvent, toastifyPromise} from "../../utils/utils";
-import {toast} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 
 function CreateRoomModal() {
@@ -13,10 +12,10 @@ function CreateRoomModal() {
         event.preventDefault();
         const nickName = getValueFromEvent(event,'nickName');
         const {response, fingerprint} = await toastifyPromise(Api.createChatter(nickName))
-        const {message,/* messageResponseType*/ } = response;
-        if (message === 'Successfully Registered!') {
-            const {message,/* messageResponseType*/ }  = Api.createRoom(fingerprint);
-            const roomId = message.match(/\d+/)[0] //TODO: This is error-prone
+        const {message, messageResponseType } = response;
+        if (messageResponseType === 'SUCCESS') {
+            const {message,/* messageResponseType*/ }  = await toastifyPromise(Api.createRoom(fingerprint));
+            const roomId = parseInt(message.match(/\d+/)[0]) //TODO: This is error-prone
             setRoomInfo({nickName,message,roomId})
         }
     }

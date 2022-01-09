@@ -1,7 +1,6 @@
 import axios from "axios";
 import FingerprintJS from '@fingerprintjs/fingerprintjs-pro';
 import {toast} from "react-toastify";
-import Api from "./Api";
 
 export async function generateGeoIp() {
     return {
@@ -17,7 +16,13 @@ export async function generateGeoIp() {
     }
 }
 
-export async function generateFingerprintId() {
+export const getFingerprintId = (() => {
+    //Static variables in JS: http://chamnapchhorn.blogspot.com/2008/07/trick-to-use-static-variables-in.html
+    const fingerprint = _generateFingerprintId();
+    return () => fingerprint;
+})();
+
+async function _generateFingerprintId() {
     return (Math.random() * 1000000000).toFixed(5) + "-demo";
     const fp = await FingerprintJS.load({
         token: 'q8UcX00Wll9rl7vh0q3e'
@@ -30,13 +35,14 @@ export function getValueFromEvent(event, id) {
     return event?.target?.elements?.[id]?.value
 }
 
-export async function toastifyPromise(func, pendingMsg, successMsg, errorMsg){
+export async function toastifyPromise(func, successMsg, errorMsg, pendingMsg){
     return toast.promise(func,{
         pending: pendingMsg ?? "Loading...",
         success: {
             render(response){
-                console.log(response)
-                return (successMsg ?? "") + response?.data?.response?.message;
+                return (successMsg ?? "")
+                    + (response?.data?.response?.message ?? "")
+                    + (response?.data?.message ?? "")
             },
             theme: "colored",
             hideProgressBar: false

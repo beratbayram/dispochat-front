@@ -2,8 +2,14 @@ import './RoomMain.sass';
 import send from '../../assets/send.png'
 import {getValueFromEvent} from "../../utils/utils";
 import RoomMainMessage from "./RoomMainMessage";
+import Socket from "../../utils/Socket";
+import {useEffect} from "react";
 
-export default function RoomMain() {
+export default function RoomMain({nickName, roomId}) {
+
+    useEffect(() => {
+        Socket.connectToChat("resul");
+    },[])
     const messages = [
         {
             isFromUser: true,
@@ -15,21 +21,6 @@ export default function RoomMain() {
             msg: 'Hey 👋',
             time: '11:35'
 
-        },
-        {
-            isFromUser: true,
-            msg: 'I am sending the private key right now. Please keep it to yourself.',
-            time: '11:36'
-        },
-        {
-            isFromUser: true,
-            msg: 'MIGeMA0GCSqGSIb3DQEBAQUAA4GMADCBiAKBgGewOB1rGsUll1yYYAkTzM/LGrJp=',
-            time: '11:37'
-        },
-        {
-            isFromUser: false,
-            msg: 'Definitely. No worries 👍',
-            time: '11:37'
         }
     ]
 

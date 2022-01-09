@@ -1,10 +1,10 @@
 import axios from "axios";
-import {generateFingerprintId, generateGeoIp} from "./utils";
+import {getFingerprintId, generateGeoIp} from "./utils";
 
 export default class Api {
     static async createChatter(nickName) {
         const {country, city} = await generateGeoIp();
-        const fingerprint = await generateFingerprintId();
+        const fingerprint = await getFingerprintId();
         const payload = {
             uniqueKey: fingerprint,
             nickName: nickName,
