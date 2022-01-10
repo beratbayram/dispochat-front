@@ -46,9 +46,9 @@ function JoinRoomModal() {
         return (
             <form onSubmit={event => handleSubmit(event,setRoomInfo)}>
                 <label htmlFor="inputNickname">Nick Name</label>
-                <input id="inputNickname" name="inputNickname"/>
+                <input autoFocus required ="inputNickname" name="inputNickname"/>
                 <label htmlFor="inputRoomId">Room Id</label>
-                <input type="number" min="1" id="inputRoomId" name="inputRoomId"/>
+                <input required type="number" min="1" id="inputRoomId" name="inputRoomId"/>
                 <button type="submit">Join</button>
             </form>
         )

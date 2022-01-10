@@ -49,11 +49,9 @@ export default class Api {
     }
 
     static async fetchRequester(){
-        const payload = {
-            uniqueKey: await getFingerprintId()
-        };
-        console.debug('fetchRequester payload:', payload);
-        const {data: response} = await axios.post(Api.url + 'fetchRequester/', payload);
+        const uniqueKey = await getFingerprintId()
+        console.debug('fetchRequester payload:', uniqueKey);
+        const {data: response} = await axios.post(Api.url + 'fetchRequester/', uniqueKey);
         console.debug('fetchRequester response:', response);
     }
 }

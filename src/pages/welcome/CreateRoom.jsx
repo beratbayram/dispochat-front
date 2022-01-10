@@ -24,7 +24,7 @@ function CreateRoomModal() {
         return (
             <form onSubmit={handleSubmit}>
                 <label htmlFor="nickName">Nick Name</label>
-                <input required id="nickName" name="nickName"/>
+                <input required autoFocus id="nickName" name="nickName"/>
                 <button type="submit">Create</button>
             </form>
         )
