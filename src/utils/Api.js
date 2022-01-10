@@ -53,5 +53,6 @@ export default class Api {
         console.debug('fetchRequester payload:', uniqueKey);
         const {data: response} = await axios.post(Api.url + 'fetchRequester/', uniqueKey);
         console.debug('fetchRequester response:', response);
+        return response;
     }
 }

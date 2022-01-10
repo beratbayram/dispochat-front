@@ -23,7 +23,7 @@ function CreateRoomModal() {
     if (roomInfo === null)
         return (
             <form onSubmit={handleSubmit}>
-                <label htmlFor="nickName">Nick Name</label>
+                <label htmlFor="nickName">Nickname</label>
                 <input required autoFocus id="nickName" name="nickName"/>
                 <button type="submit">Create</button>
             </form>

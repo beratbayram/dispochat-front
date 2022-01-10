@@ -45,7 +45,7 @@ function JoinRoomModal() {
     else
         return (
             <form onSubmit={event => handleSubmit(event,setRoomInfo)}>
-                <label htmlFor="inputNickname">Nick Name</label>
+                <label htmlFor="inputNickname">Nickname</label>
                 <input autoFocus required ="inputNickname" name="inputNickname"/>
                 <label htmlFor="inputRoomId">Room Id</label>
                 <input required type="number" min="1" id="inputRoomId" name="inputRoomId"/>
