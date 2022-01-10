@@ -1,14 +1,24 @@
 import './RoomAside.sass';
 import logo from "../../assets/logo.svg";
 import user from "../../assets/user.png";
-import {toastifyPromise} from "../../utils/utils";
+import {toastifyPromise, toastifyPromiseConfirm} from "../../utils/utils";
 import Api from "../../utils/Api";
 
-async function checkGuests(event) {
-    await toastifyPromise(Api.fetchRequester());
+function Hey({msg}) {
+    return (
+        <>
+            <p>{msg}</p>
+            <button>Accept</button>
+            <button>Reject</button>
+        </>
+    )
 }
 
-export default function RoomAside({nickName,roomId}){
+async function checkGuests(/*event*/) {
+    await toastifyPromiseConfirm(Api.fetchRequester(), Hey);
+}
+
+export default function RoomAside({nickName, roomId}) {
 
     return (
         <aside>

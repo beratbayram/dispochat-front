@@ -10,7 +10,7 @@ async function handleSubmit(event,setRoomInfo) {
     const roomId = getValueFromEvent(event, 'inputRoomId');
     try {
         const {response, fingerprint} = await toastifyPromise(Api.createChatter(nickName));
-        const {/*message*/ messageResponseType} = response;
+        const {/*message,*/ messageResponseType} = response;
         if (messageResponseType === 'SUCCESS') {
             const {message, /*messageResponseType*/} = await toastifyPromise(Api.joinRoom(nickName, fingerprint, roomId));
             setRoomInfo({nickName, message, roomId})
