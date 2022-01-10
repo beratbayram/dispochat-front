@@ -1,6 +1,12 @@
 import './RoomAside.sass';
 import logo from "../../assets/logo.svg";
 import user from "../../assets/user.png";
+import {toastifyPromise} from "../../utils/utils";
+import Api from "../../utils/Api";
+
+async function checkGuests(event) {
+    await toastifyPromise(Api.fetchRequester());
+}
 
 export default function RoomAside({nickName,roomId}){
 
@@ -37,11 +43,11 @@ export default function RoomAside({nickName,roomId}){
                 </p>
             </div>
             <div id="aside-bottom">
-                <button type="button">
-                    Log out and destroy data
+                <button onClick={checkGuests} type="button">
+                    Check guests
                 </button>
                 <button type="button">
-                    Destroy data now
+                    KILL SWITCH
                 </button>
             </div>
         </aside>

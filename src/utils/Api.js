@@ -2,6 +2,7 @@ import axios from "axios";
 import {getFingerprintId, generateGeoIp} from "./utils";
 
 export default class Api {
+    static url = "http://localhost:8080/";
     static async createChatter(nickName) {
         const {country, city} = await generateGeoIp();
         const fingerprint = await getFingerprintId();
@@ -11,28 +12,48 @@ export default class Api {
             country: country,
             city: city
         };
-        console.debug('createChatter payload:',payload);
-        const {data:response} = await axios.post('http://localhost:8080/createChatter/', payload);
+        console.debug('createChatter payload:', payload);
+        const {data: response} = await axios.post(Api.url + 'createChatter/', payload);
         console.debug('createChatter response:', response)
-        return {response,fingerprint};
+        return {response, fingerprint};
     }
 
     static async createRoom(uniqueKey) {
-        console.debug('createRoom payload:',uniqueKey);
-        const {data:response} = await axios.post('http://localhost:8080/createRoom/', uniqueKey);
-        console.debug('createRoom response:',response)
+        console.debug('createRoom payload:', uniqueKey);
+        const {data: response} = await axios.post(Api.url + 'createRoom/', uniqueKey);
+        console.debug('createRoom response:', response)
         return response;
     }
 
-    static async joinRoom(nickName,fingerprint,roomId){
+    static async joinRoom(nickName, fingerprint, roomId) {
         const payload = {
             uniqueKey: fingerprint,
             nickName: nickName,
             roomId: roomId
         };
-        console.debug('joinRoom payload:',payload);
-        const {data:response} = await axios.post('http://localhost:8080/joinRoom/', payload);
-        console.debug('joinRoom response:',response)
+        console.debug('joinRoom payload:', payload);
+        const {data: response} = await axios.post(Api.url + 'joinRoom/', payload);
+        console.debug('joinRoom response:', response)
         return response;
+    }
+
+    static async guestRequest(isAllowed){
+        const payload = {
+            uniqueKey: await getFingerprintId(),
+            isAllowed
+        };
+        console.debug('guestRequest payload:', payload);
+        const {data: response} = await axios.post(Api.url + 'guestRequest/', payload);
+        console.debug('guestRequest response:', response);
+        return response;
+    }
+
+    static async fetchRequester(){
+        const payload = {
+            uniqueKey: await getFingerprintId()
+        };
+        console.debug('fetchRequester payload:', payload);
+        const {data: response} = await axios.post(Api.url + 'fetchRequester/', payload);
+        console.debug('fetchRequester response:', response);
     }
 }
