@@ -5,8 +5,8 @@ import {toast} from "react-toastify";
 export async function generateGeoIp() {
     return {
         ip: '111.22.33.444',
-        country: 'Atlantis',
-        city: 'Angara'
+        country: 'Turkey',
+        city: 'Ankara'
     }
     const {data} = await axios.get('http://ip-api.com/json')
     return {
@@ -62,6 +62,7 @@ export async function toastifyPromiseConfirm(func, Component, successMsg, errorM
         pending: pendingMsg ?? "Loading...",
         success: {
             render(response){
+                console.warn(response)
                 return <Component msgData={response?.data ?? {} } closeToast={response.closeToast}/>;
             },
             theme: "colored",

@@ -43,7 +43,7 @@ export default class Api {
             isAllowed
         };
         console.debug('guestRequest payload:', payload);
-        const {data: response} = await axios.post(Api.url + 'guestRequest/', payload);
+        const {data: response} = await axios.post(Api.url + 'guestRequest/' + isAllowed.toString(), payload.uniqueKey);
         console.debug('guestRequest response:', response);
         return response;
     }

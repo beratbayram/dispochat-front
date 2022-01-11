@@ -4,9 +4,8 @@ import user from "../../assets/user.png";
 import {toastifyPromise, toastifyPromiseConfirm} from "../../utils/utils";
 import Api from "../../utils/Api";
 
-function Hey({msgData,closeToast}) {
-    const {message,messageResponseType,object:requester} = msgData;
-
+function ToastifyButtons({msgData,closeToast}) {
+    const {message,messageResponseType,chatter} = msgData;
     async function handleClick(isAccept){
         closeToast();
         await toastifyPromise(Api.guestRequest(isAccept));
@@ -16,6 +15,8 @@ function Hey({msgData,closeToast}) {
     return (
         <>
             <p>{message}</p>
+            <br/>
+            <p><em>{`(${chatter.country}/${chatter.city})`}</em></p>
             <button onClick={() => handleClick(true)} id="toast-button-accept">Accept</button>
             <button onClick={() => handleClick(false)} id="toast-button-reject">Reject</button>
         </>
@@ -23,7 +24,7 @@ function Hey({msgData,closeToast}) {
 }
 
 async function checkGuests(/*event*/) {
-    await toastifyPromiseConfirm(Api.fetchRequester(), Hey);
+    await toastifyPromiseConfirm(Api.fetchRequester(),ToastifyButtons);
 }
 
 export default function RoomAside({nickName, roomId}) {
