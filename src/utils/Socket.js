@@ -13,7 +13,7 @@ export default class Socket {
         Socket.stompClient.debug = console.debug
         Socket.stompClient.connect({}, async (frame) => {
             Socket.fingerprint = await getFingerprintId();
-            const {id,unsubscribe} = Socket.stompClient.subscribe("/topic/messages/" + Socket.fingerprint, console.log);
+            const {id,unsubscribe} = Socket.stompClient.subscribe("/topic/messages/" + Socket.fingerprint,console.log);
         });
         Socket.stompClient.activate();
     }
