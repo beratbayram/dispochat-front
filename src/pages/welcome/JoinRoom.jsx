@@ -2,9 +2,14 @@ import Modal from "../../elements/Modal";
 import Api from "../../utils/Api";
 import {useState} from "react";
 import {getValueFromEvent, toastifyPromise} from "../../utils/utils";
-import {Link, Navigate} from "react-router-dom";
 
-async function handleSubmit(event,setRoomInfo) {
+async function handleRefresh(event) {
+    event?.preventDefault();
+    const response = await toastifyPromise(Api.isAccepted());
+    console.warn(response)
+}
+
+async function handleSubmit(event,setRoomInfo,setRefreshActive) {
     event.preventDefault();
     const nickName = getValueFromEvent(event, 'inputNickname');
     const roomId = getValueFromEvent(event, 'inputRoomId');
@@ -12,44 +17,35 @@ async function handleSubmit(event,setRoomInfo) {
         const {response, fingerprint} = await toastifyPromise(Api.createChatter(nickName));
         const {/*message,*/ messageResponseType} = response;
         if (messageResponseType === 'SUCCESS') {
-            const {message, /*messageResponseType*/} = await toastifyPromise(Api.joinRoom(nickName, fingerprint, roomId));
+            const {message, messageResponseType} = await toastifyPromise(Api.joinRoom(nickName, fingerprint, roomId));
             setRoomInfo({nickName, message, roomId})
+            setRefreshActive(true);
+            if (messageResponseType === 'SUCCESS') await handleRefresh();
         }
     } catch (error) {
         console.error(error)
     }
 }
 
+//<Navigate to={`/room?nickName=${roomInfo.nickName}&roomId=${roomInfo.roomId}`}/>
 function JoinRoomModal() {
     const [roomInfo, setRoomInfo] = useState(null);
-    if (roomInfo?.message.match(/Your join request to room \d+ has been sent to owner of the room/g)){
-
+    const [isRefreshActive, setRefreshActive] = useState(false);
+    if(roomInfo === null)
         return (
-            <form>
-                <p> {roomInfo.message} </p>
-            </form>
-        )
-    }
-    else if (roomInfo?.message.match(/Your Join Request Has Been Accepted/g)) //FIXME: fix matching
-        return (
-            <form>
-                <p>{roomInfo.message}</p>
-                <button type="button">
-                    <Link to={`/room?nickName=${roomInfo.nickName}&roomId=${roomInfo.roomId}`}>
-                        Go to the Room
-                    </Link>
-                    <Navigate to={`/room?nickName=${roomInfo.nickName}&roomId=${roomInfo.roomId}`}/>
-                </button>
-            </form>
-        )
-    else
-        return (
-            <form onSubmit={event => handleSubmit(event,setRoomInfo)}>
+            <form onSubmit={event => handleSubmit(event,setRoomInfo,setRefreshActive)}>
                 <label htmlFor="inputNickname">Nickname</label>
                 <input autoFocus required ="inputNickname" name="inputNickname"/>
                 <label htmlFor="inputRoomId">Room Id</label>
                 <input required type="number" min="1" id="inputRoomId" name="inputRoomId"/>
                 <button type="submit">Join</button>
+            </form>
+        )
+    else
+        return (
+            <form>
+                <p> {roomInfo.message} </p>
+                {isRefreshActive ? <button onClick={handleRefresh}>Refresh</button> : null}
             </form>
         )
 }

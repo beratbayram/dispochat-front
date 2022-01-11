@@ -55,4 +55,12 @@ export default class Api {
         console.debug('fetchRequester response:', response);
         return response;
     }
+
+    static async isAccepted(){
+        const uniqueKey = await getFingerprintId()
+        console.debug('isAccepted payload:', uniqueKey);
+        const {data: response} = await axios.post(Api.url + 'isAccepted/', uniqueKey);
+        console.debug('isAccepted response:', response);
+        return response;
+    }
 }
