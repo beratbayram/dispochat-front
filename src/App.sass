@@ -31,3 +31,18 @@ img#background
     z-index: 0
     color: base.$light-color
     @include base.flex(100vw,100vh)
+
+@mixin toast-button($color)
+  @include base.button(45%,auto)
+  margin: 10px 2% 0
+  color: white
+  background: $color
+  &:hover
+    background: $color
+
+#toast-button-accept
+  @include toast-button(green)
+
+#toast-button-reject
+  @include toast-button(red)
+

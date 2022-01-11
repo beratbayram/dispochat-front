@@ -62,10 +62,10 @@ export async function toastifyPromiseConfirm(func, Component, successMsg, errorM
         pending: pendingMsg ?? "Loading...",
         success: {
             render(response){
-                return <Component msg={response?.data?.message ?? ""}/>;
+                return <Component msgData={response?.data ?? {} } closeToast={response.closeToast}/>;
             },
             theme: "colored",
-            hideProgressBar: false
+            hideProgressBar: false,
         },
         error: {
             render(err){

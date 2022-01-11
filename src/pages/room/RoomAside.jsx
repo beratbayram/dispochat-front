@@ -4,12 +4,20 @@ import user from "../../assets/user.png";
 import {toastifyPromise, toastifyPromiseConfirm} from "../../utils/utils";
 import Api from "../../utils/Api";
 
-function Hey({msg}) {
+function Hey({msgData,closeToast}) {
+    const {message,messageResponseType,object:requester} = msgData;
+
+    async function handleClick(isAccept){
+        closeToast();
+        await toastifyPromise(Api.guestRequest(isAccept));
+    }
+
+    if(!message.match(/wants to join to your room/g) || messageResponseType === 'ERROR') return message;
     return (
         <>
-            <p>{msg}</p>
-            <button>Accept</button>
-            <button>Reject</button>
+            <p>{message}</p>
+            <button onClick={() => handleClick(true)} id="toast-button-accept">Accept</button>
+            <button onClick={() => handleClick(false)} id="toast-button-reject">Reject</button>
         </>
     )
 }
