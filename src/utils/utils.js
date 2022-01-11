@@ -62,7 +62,6 @@ export async function toastifyPromiseConfirm(func, Component, successMsg, errorM
         pending: pendingMsg ?? "Loading...",
         success: {
             render(response){
-                console.warn(response)
                 return <Component msgData={response?.data ?? {} } closeToast={response.closeToast}/>;
             },
             theme: "colored",
