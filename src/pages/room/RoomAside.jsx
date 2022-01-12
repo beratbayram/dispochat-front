@@ -3,6 +3,7 @@ import logo from "../../assets/logo.svg";
 import user from "../../assets/user.png";
 import {toastifyPromise, toastifyPromiseConfirm} from "../../utils/utils";
 import Api from "../../utils/Api";
+import {useNavigate} from "react-router-dom";
 
 function ToastifyButtons({msgData,closeToast}) {
     const {message,messageResponseType,chatter} = msgData;
@@ -28,6 +29,17 @@ async function checkGuests(/*event*/) {
 }
 
 export default function RoomAside({nickName, roomId}) {
+    const navigate = useNavigate();
+
+    async function handleKillSwitch() {
+        // FIXME
+        // eslint-disable-next-line no-restricted-globals
+        if(confirm("Are u sure you want to kill this room?"))
+        {
+            const {message,messageResponseType} = await toastifyPromise(Api.killSwitch());
+            if(messageResponseType === 'SUCCESS') navigate('/');
+        }
+    }
 
     return (
         <aside>
@@ -57,15 +69,12 @@ export default function RoomAside({nickName, roomId}) {
                     </tr>
                     </tbody>
                 </table>
-                <p>
-
-                </p>
             </div>
             <div id="aside-bottom">
                 <button onClick={checkGuests} type="button">
                     Check guests
                 </button>
-                <button type="button">
+                <button onClick={handleKillSwitch} type="button">
                     KILL SWITCH
                 </button>
             </div>
