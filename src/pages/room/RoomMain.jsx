@@ -1,33 +1,22 @@
 import './RoomMain.sass';
 import send from '../../assets/send.png'
-import {getFingerprintId, getValueFromEvent} from "../../utils/utils";
+import {getValueFromEvent} from "../../utils/utils";
 import RoomMainMessage from "./RoomMainMessage";
 import Socket from "../../utils/Socket";
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 
 export default function RoomMain({nickName, roomId}) {
+    //msg: { isFromUser: Boolean,msg: string,time: string}
+    const [msgArr,setMsgArr] = useState([]);
 
-    useEffect(() => {
-        Socket.connectToChat("resul");
-    },[])
-    const messages = [
-        {
-            isFromUser: true,
-            msg: 'Hi',
-            time: '11:35'
-        },
-        {
-            isFromUser: false,
-            msg: 'Hey 👋',
-            time: '11:35'
-
-        }
-    ]
+    Socket.setMsgArr = setMsgArr;
+    Socket.msgArr = msgArr
+    useEffect(() => Socket.connectToChat(),[]);
 
     function handleSubmit(event) {
         event.preventDefault();
         const msg = getValueFromEvent(event, 'inputBox');
-        Socket.sendMsg(msg);
+        Socket.sendMsgToSocket(msg);
     }
 
     return (
@@ -35,7 +24,7 @@ export default function RoomMain({nickName, roomId}) {
             <div id="messages-panel">
                 <div id="message-container">
                     { //TODO: change index to an actual key
-                        messages.map((elem, index) =>
+                        msgArr.map((elem, index) =>
                             <RoomMainMessage key={index} isFromUser={elem.isFromUser} msg={elem.msg} time={elem.time}/>)
                     }
                 </div>

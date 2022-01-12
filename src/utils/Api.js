@@ -63,4 +63,14 @@ export default class Api {
         console.debug('isAccepted response:', response);
         return response;
     }
+
+    static async killSwitch(){
+        const uniqueKey = await getFingerprintId()
+        console.debug('isAccepted payload:', uniqueKey);
+        const {data: response} = await axios.post(Api.url + 'killSwitch/', uniqueKey);
+        console.debug('isAccepted response:', response);
+        return response;
+    }
+
+
 }
