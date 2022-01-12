@@ -4,6 +4,7 @@ import user from "../../assets/user.png";
 import {toastifyPromise, toastifyPromiseConfirm} from "../../utils/utils";
 import Api from "../../utils/Api";
 import {useNavigate} from "react-router-dom";
+import {useEffect, useState} from "react";
 
 function ToastifyButtons({msgData,closeToast}) {
     const {message,messageResponseType,chatter} = msgData;
@@ -30,6 +31,17 @@ async function checkGuests(/*event*/) {
 
 export default function RoomAside({nickName, roomId}) {
     const navigate = useNavigate();
+    const [chatters,setChatters] = useState([
+        {
+
+        },
+        {
+
+        }
+    ])
+
+    useEffect(() => { Api.queryChatters(roomId)},[]);
+
 
     async function handleKillSwitch() {
         // FIXME
@@ -44,7 +56,7 @@ export default function RoomAside({nickName, roomId}) {
     return (
         <aside>
             <div id="aside-top">
-                <img src={logo} alt="logo"/>
+                <img src={logo} onClick={handleKillSwitch} alt="logo"/>
                 <h1><em>Dispo</em>Chat</h1>
             </div>
             <div id="aside-middle">
