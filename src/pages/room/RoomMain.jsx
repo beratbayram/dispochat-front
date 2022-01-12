@@ -17,6 +17,7 @@ export default function RoomMain({nickName, roomId}) {
         event.preventDefault();
         const msg = getValueFromEvent(event, 'inputBox');
         Socket.sendMsgToSocket(msg);
+        event.target[0].value ='';
     }
 
     return (
