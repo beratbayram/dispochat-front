@@ -1,8 +1,9 @@
 import {Stomp} from "@stomp/stompjs";
+import url from "../assets/url";
 import {getFingerprintId} from "./utils";
 
 export default class Socket {
-    static url = "ws://localhost:8080"
+    static url = "ws://" + url;
     static fingerprint
     static stompClient;
 
