@@ -72,5 +72,15 @@ export default class Api {
         return response;
     }
 
-
+    static async queryChatters(roomId){
+        const uniqueKey = await getFingerprintId()
+        const payload = {
+            uniqueKey: uniqueKey,
+            roomId: roomId,
+        };
+        console.debug('queryChatters payload:', payload);
+        const {data: response} = await axios.post(Api.url + 'queryChatters/', payload);
+        console.debug('queryChatters response:', response);
+        return response;
+    }
 }
