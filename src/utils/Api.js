@@ -1,8 +1,9 @@
 import axios from "axios";
+import url from "../assets/url";
 import {getFingerprintId, generateGeoIp} from "./utils";
 
 export default class Api {
-    static url = "http://localhost:8080/";
+    static url = "http://" + url;
     static async createChatter(nickName) {
         const {country, city} = await generateGeoIp();
         const fingerprint = await getFingerprintId();
