@@ -5,26 +5,26 @@ import RoomMainMessage from "./RoomMainMessage";
 import Socket from "../../utils/Socket";
 import {useEffect, useRef, useState} from "react";
 
+function handleSubmit(event) {
+    event.preventDefault();
+    Socket.sendMsgToSocket(getValueFromEvent(event, 'inputBox'));
+    event.target[0].value = '';
+}
+
 export default function RoomMain({nickName, roomId}) {
     //msg: { isFromUser: Boolean,msg: string,time: string}
-    const [msgArr,setMsgArr] = useState([]);
+    const [msgArr, setMsgArr] = useState([]);
     const messagesEndRef = useRef(null);
 
     Socket.setMsgArr = setMsgArr;
     Socket.msgArr = msgArr
-    useEffect(() => Socket.connectToChat(),[]);
 
     useEffect(() => {
+        Socket.connectToChat()
+    }, []);
+    useEffect(() => {
         messagesEndRef.current?.scrollIntoView();
-        console.warn("AMK RESUL",messagesEndRef.current?.scrollIntoView())
     }, [msgArr]);
-
-    function handleSubmit(event) {
-        event.preventDefault();
-        const msg = getValueFromEvent(event, 'inputBox');
-        Socket.sendMsgToSocket(msg);
-        event.target[0].value ='';
-    }
 
     return (
         <main>
@@ -34,12 +34,11 @@ export default function RoomMain({nickName, roomId}) {
                         msgArr.map((elem, index) =>
                             <RoomMainMessage key={index} isFromUser={elem.isFromUser} msg={elem.msg} time={elem.time}/>)
                     }
-                    <div ref={messagesEndRef} />
+                    <div ref={messagesEndRef}/> {/*Dummy div for auto-scroll*/}
                 </div>
-
             </div>
             <form onSubmit={handleSubmit}>
-                <input type="text" id="inputBox" name="inputBox"/>
+                <input type="text" id="inputBox" name="inputBox" autoComplete="off"/>
                 <button type="submit">
                     <img src={send} alt="send button"/>
                 </button>

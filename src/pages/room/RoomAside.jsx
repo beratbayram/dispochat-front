@@ -40,7 +40,7 @@ export default function RoomAside({nickName, roomId}) {
         }
     ])
 
-    useEffect(() => { console.log("hey");Api.queryChatters(roomId).then(console.log)},[roomId]);
+    useEffect(() => { Api.queryChatters(roomId).then(console.log)},[roomId]);
 
 
     async function handleKillSwitch() {
