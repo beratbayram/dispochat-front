@@ -31,16 +31,10 @@ async function checkGuests(/*event*/) {
 
 export default function RoomAside({nickName, roomId}) {
     const navigate = useNavigate();
-    const [chatters,setChatters] = useState([
-        {
+    const [chatters,setChatters] = useState(null)
+    const {guestChatter,ownerChatter} = chatters ?? {};
 
-        },
-        {
-
-        }
-    ])
-
-    useEffect(() => { Api.queryChatters(roomId).then(console.log)},[roomId]);
+    useEffect(() => { Api.queryChatters(roomId).then(setChatters)},[roomId]);
 
 
     async function handleKillSwitch() {
@@ -68,16 +62,16 @@ export default function RoomAside({nickName, roomId}) {
                         <td><img src={user} alt="user-logo"/></td>
                     </tr>
                     <tr id="nickNames">
-                        <td><p>{nickName}</p></td>
-                        <td><p>Berat</p></td>
+                        <td><p>{ownerChatter?.nickName}</p></td>
+                        <td><p>{guestChatter?.nickName ?? "Empty"}</p></td>
                     </tr>
                     <tr>
-                        <td><p>Ankara</p></td>
-                        <td><p>Istanbul</p></td>
+                        <td><p>{ownerChatter?.city}</p></td>
+                        <td><p>{guestChatter?.city}</p></td>
                     </tr>
                     <tr>
-                        <td><p>Turkey</p></td>
-                        <td><p>Turkey</p></td>
+                        <td><p>{ownerChatter?.country}</p></td>
+                        <td><p>{guestChatter?.country}</p></td>
                     </tr>
                     </tbody>
                 </table>
