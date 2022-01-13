@@ -5,23 +5,28 @@ aside
   border-right: 1px solid base.$dark-color
 
   #aside-top
-    @include base.flex(100%, 40%)
+    @include base.flex(100%, 30%)
+    justify-content: flex-start
 
     img
-      @include base.element(50%, auto)
+      @include base.element(30%, auto)
+      margin: 0
+      padding: 0
       &:hover
         cursor: pointer
 
     h1, em
       color: base.$dark-color
-      font-size: 35px
+      font-size: min(5vw,50px)
 
   #aside-middle
     @include base.flex(100%, 40%)
     justify-content: space-around
 
     h2
-      font-size: 125%
+      @include base.flex(100%, auto)
+      font-size: min(2vw,30px)
+      font-weight: normal
       color: base.$dark-color
 
     table

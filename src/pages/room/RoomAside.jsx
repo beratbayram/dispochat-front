@@ -58,8 +58,7 @@ export default function RoomAside({nickName, roomId}) {
                 <h1><em>Dispo</em>Chat</h1>
             </div>
             <div id="aside-middle">
-                <h2>Connected to</h2>
-                <h2>{`room ${roomId}`}</h2>
+                <h2>Connected to room {roomId}</h2>
                 <table>
                     <tbody>
                     <tr>
