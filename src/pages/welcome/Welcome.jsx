@@ -7,7 +7,7 @@ export default function Welcome() {
     return (
         <div id="Welcome">
             <div id="Welcome-top">
-                <img src={logo} alt="logo" />
+                <img src={logo} alt="logo"/>
                 <h1><em>Dispo</em>Chat</h1>
             </div>
             <div id="Welcome-bottom">
