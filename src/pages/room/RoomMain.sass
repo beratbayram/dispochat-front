@@ -8,8 +8,11 @@
     #messages-panel
       @include base.flex(100%, 90%)
       justify-content: flex-end
+
       #message-container
-        @include base.flex(100%,auto)
+        @include base.flex(100%, auto)
+        overflow-y: scroll
+
 
     form
       @include base.flex(100%, 10%, row)
@@ -28,7 +31,8 @@
           outline: none
           color: base.$light-color
 
-        &:-webkit-autofill //transparency doesn't work here
+        //transparency doesn't work herex"
+        &:-webkit-autofill
           -webkit-box-shadow: 0 0 0 30px black inset
           -webkit-text-fill-color: base.$light-color
           &:hover, &:focus, &:active
@@ -38,5 +42,6 @@
         @include base.flex(5%, 70%)
         background-color: transparent
         border: none
+
         &:active
           transform: scale(0.75)

@@ -1,9 +1,9 @@
 @use 'base'
 
 *
-    box-sizing: border-box
-    margin: 0
-    padding: 0
+  box-sizing: border-box
+  margin: 0
+  padding: 0
 
 root
   --toastify-color-success: base.$dark-color
@@ -16,24 +16,24 @@ root
     transform: rotate(0deg) scale(3) translateZ(0)
 
 body
-    background-color: base.$dark-color
+  background-color: base.$dark-color
 
 img#background
-    z-index: -1
-    position: fixed
-    top: 0
-    left: 0
-    transform-origin: 50vw 50vh
-    -webkit-font-smoothing: subpixel-antialiased
-    animation: animatedBackground 20s linear infinite
+  z-index: -1
+  position: fixed
+  top: 0
+  left: 0
+  transform-origin: 50vw 50vh
+  -webkit-font-smoothing: subpixel-antialiased
+  animation: animatedBackground 20s linear infinite
 
 #site
-    z-index: 0
-    color: base.$light-color
-    @include base.flex(100vw,100vh)
+  z-index: 0
+  color: base.$light-color
+  @include base.flex(100vw, 100vh)
 
 @mixin toast-button($color)
-  @include base.button(45%,auto)
+  @include base.button(45%, auto)
   margin: 10px 2% 0
   color: white
   background: $color
@@ -45,4 +45,29 @@ img#background
 
 #toast-button-reject
   @include toast-button(red)
+
+/* width */
+::-webkit-scrollbar
+  width: 12px
+
+/* Track */
+::-webkit-scrollbar-track
+  background: transparent
+
+/* Handle */
+::-webkit-scrollbar-thumb
+  background: black
+  border: 1px solid base.$dark-color
+  border-radius: 25px
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover
+  background: base.$dark-color
+  border: 1px solid base.$light-color
+  border-radius: 25px
+
+::-webkit-scrollbar-thumb:active
+  background: base.$light-color
+  border: 1px solid base.$light-color
+  border-radius: 25px
 

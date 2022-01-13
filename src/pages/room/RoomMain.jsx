@@ -3,15 +3,21 @@ import send from '../../assets/send.png'
 import {getValueFromEvent} from "../../utils/utils";
 import RoomMainMessage from "./RoomMainMessage";
 import Socket from "../../utils/Socket";
-import {useEffect, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 
 export default function RoomMain({nickName, roomId}) {
     //msg: { isFromUser: Boolean,msg: string,time: string}
     const [msgArr,setMsgArr] = useState([]);
+    const messagesEndRef = useRef(null);
 
     Socket.setMsgArr = setMsgArr;
     Socket.msgArr = msgArr
     useEffect(() => Socket.connectToChat(),[]);
+
+    useEffect(() => {
+        messagesEndRef.current?.scrollIntoView();
+        console.warn("AMK RESUL",messagesEndRef.current?.scrollIntoView())
+    }, [msgArr]);
 
     function handleSubmit(event) {
         event.preventDefault();
@@ -28,7 +34,9 @@ export default function RoomMain({nickName, roomId}) {
                         msgArr.map((elem, index) =>
                             <RoomMainMessage key={index} isFromUser={elem.isFromUser} msg={elem.msg} time={elem.time}/>)
                     }
+                    <div ref={messagesEndRef} />
                 </div>
+
             </div>
             <form onSubmit={handleSubmit}>
                 <input type="text" id="inputBox" name="inputBox"/>
