@@ -10,8 +10,9 @@ async function checkGuests(roomId, setChatters, ToastifyButtons) {
     await toastifyPromiseConfirm(Api.fetchRequester(), ToastifyButtons);
 }
 
-export default function RoomAside({nickName, roomId}) {
+export default function RoomAside({nickName, roomId,isOwner}) {
     const navigate = useNavigate();
+    const [isCheckGuestsOpen,setIsCheckGuestsOpen] = useState(!!isOwner);
     const [chatters, setChatters] = useState(null)
     const {guestChatter, ownerChatter} = chatters ?? {};
 
@@ -21,8 +22,10 @@ export default function RoomAside({nickName, roomId}) {
         async function handleClick(isAccept) {
             closeToast();
             const {messageResponseType} = await toastifyPromise(Api.guestRequest(isAccept));
-            if (messageResponseType === 'SUCCESS')
+            if (messageResponseType === 'SUCCESS') {
                 setChatters(await Api.queryChatters(roomId));
+                setIsCheckGuestsOpen(false)
+            }
         }
 
         if (!message.match(/wants to join to your room/g) || messageResponseType === 'ERROR') return message;
@@ -58,7 +61,7 @@ export default function RoomAside({nickName, roomId}) {
                 <h1><em>Dispo</em>Chat</h1>
             </div>
             <div id="aside-middle">
-                <h2>Connected to room {roomId}</h2>
+                <h2>Room {roomId}</h2>
                 <table>
                     <tbody>
                     <tr>
@@ -81,12 +84,12 @@ export default function RoomAside({nickName, roomId}) {
                 </table>
             </div>
             <div id="aside-bottom">
-                <button
+                {isCheckGuestsOpen ? <button
                     onClick={(event) => checkGuests(roomId, setChatters, ToastifyButtons)}
                     type="button">
-                    Check guests
-                </button>
-                <button onClick={handleKillSwitch} type="button">
+                    CHECK GUESTS
+                </button> : null}
+                <button id="kill-switch" onClick={handleKillSwitch} type="button">
                     KILL SWITCH
                 </button>
             </div>

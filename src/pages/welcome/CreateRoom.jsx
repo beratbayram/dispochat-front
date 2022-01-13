@@ -17,9 +17,6 @@ function CreateRoomModal() {
             const {message, messageResponseType} = await toastifyPromise(Api.createRoom(fingerprint));
             const roomId = parseInt(message.match(/\d+/)[0]) //TODO: This is error-prone
             setRoomInfo({nickName, message, roomId})
-            if (messageResponseType === 'SUCCESS') {
-
-            }
         }
     }
 
@@ -39,7 +36,7 @@ function CreateRoomModal() {
                     <Link to={`/room?nickName=${roomInfo.nickName}&roomId=${roomInfo.roomId}`}>
                         Go to the Room
                     </Link>
-                    <Navigate to={`/room?nickName=${roomInfo.nickName}&roomId=${roomInfo.roomId}`}/>
+                    <Navigate to={`/room?nickName=${roomInfo.nickName}&roomId=${roomInfo.roomId}&isOwner=true`}/>
                 </button>
             </form>
         )

@@ -36,12 +36,14 @@ aside
       tr
         &#nickNames
           text-decoration: underline base.$dark-color
-
+          td
+              font-size: 15px
       td
         @include base.element(50%, auto)
         text-align: center
         padding: 1%
         overflow: hidden
+        font-size: 10px
 
         img
           @include base.element(50%, auto)
@@ -56,5 +58,8 @@ aside
     justify-content: space-evenly
 
     button
-      @include base.button
+      @include base.button(50%,auto)
       background-color: transparent
+      &#kill-switch
+        @include base.button(50%,auto,red)
+        background-color: transparent
