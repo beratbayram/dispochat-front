@@ -2,7 +2,14 @@ import axios from "axios";
 import FingerprintJS from '@fingerprintjs/fingerprintjs-pro';
 import {toast} from "react-toastify";
 
+const DEV_MODE = true;
+
 export async function generateGeoIp() {
+    if(DEV_MODE) return {
+        ip: '111.22.33.444',
+        country: 'Turkey',
+        city: 'Ankara'
+    }
     const {data} = await axios.get('http://ip-api.com/json')
     return {
         ip: data.query,
@@ -18,6 +25,7 @@ export const getFingerprintId = (() => {
 })();
 
 async function _generateFingerprintId() {
+    if(DEV_MODE) return (Math.random() * 1000000000).toFixed(5) + "-demo";
     const fp = await FingerprintJS.load({
         token: 'q8UcX00Wll9rl7vh0q3e'
     })
