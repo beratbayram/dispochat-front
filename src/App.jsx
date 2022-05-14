@@ -7,6 +7,7 @@ import Test from './Test';
 import Room from './pages/room/Room'
 import {ToastContainer} from "react-toastify";
 import './toast.css';
+import 'reactjs-popup/dist/index.css';
 
 export default function App() {
     return (

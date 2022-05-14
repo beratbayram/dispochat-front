@@ -16,7 +16,7 @@ function handleSubmit(event) {
         return;
     }
     Socket.sendMsgToSocket(msg);
-    event.target[0].value = '';
+    event.target[2].value = '';
 }
 
 export default function RoomMain({nickName, roomId}) {
