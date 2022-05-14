@@ -6,7 +6,7 @@ import {toast} from "react-toastify";
 export default function RoomMainMessage({isFromUser, msg, time}) {
     const navigate = useNavigate();
     useEffect(() => {
-        if (msg === '!?/kill'){
+        if (msg === '!?/kill') {
             navigate('/');
             toast.warn("The Room is killed by the peer!");
         }
@@ -15,11 +15,24 @@ export default function RoomMainMessage({isFromUser, msg, time}) {
         <div className={'RoomMainMessage ' + (isFromUser ? 'RoomMainMessage-user' : '')}>
             <div
                 className={'RoomMainMessageInner ' + (isFromUser ? 'RoomMainMessageInner-user' : 'RoomMainMessageInner-notUser')}>
-                <p>{msg}</p>
+                <MessageInner message={msg}/>
             </div>
             <div className="HoverTip">
                 <p>{time}</p>
             </div>
         </div>
     )
+}
+
+function MessageInner({message}) {
+    const [msgCode, msgContent] = message.split(' ');
+    console.log(msgCode);
+    if (msgCode === '!?/img')
+        return (
+            <a href={msgContent} download target='_blank'>
+                <img src={msgContent} alt="img"/>
+            </a>
+        )
+    else
+        return <p>{message}</p>
 }

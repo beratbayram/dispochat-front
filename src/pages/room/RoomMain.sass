@@ -14,6 +14,17 @@
         overflow-y: scroll
         justify-content: unset
 
+    #addImage
+      background: purple
+      position: relative
+      width: 8%
+      font-size: 50px
+      text-align: center
+      padding: 0
+      height: 60%
+      margin-right: 10px
+      @include base.border-radius
+
     form
       @include base.flex(100%, 10%, row)
       justify-content: space-evenly
@@ -26,15 +37,20 @@
         color: base.$light-color
         padding: 0 1.25%
         font-size: large
+        margin-right: 10px
 
         &:active, &:focus
           outline: none
           color: base.$light-color
 
+        &#addImageReal
+            display: none
+
         //transparency doesn't work here"
         &:-webkit-autofill
           -webkit-box-shadow: 0 0 0 30px black inset
           -webkit-text-fill-color: base.$light-color
+
           &:hover, &:focus, &:active
             -webkit-box-shadow: 0 0 0 30px black inset
 

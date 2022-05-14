@@ -6,10 +6,12 @@ import RoomMainMessage from "./RoomMainMessage";
 import Socket from "../../utils/Socket";
 import {useEffect, useRef, useState} from "react";
 import {toast} from "react-toastify";
+import RoomMainFileUpload from "./RoomMainFileUpload";
 
 function handleSubmit(event) {
     event.preventDefault();
     const msg = getValueFromEvent(event, 'inputBox');
+    console.log(getValueFromEvent(event, 'addImageReal'));
     console.log(msg)
     if (msg.trim() === '') {
         toast.warn("Please enter a message");
@@ -48,6 +50,7 @@ export default function RoomMain({nickName, roomId}) {
                     <div ref={messagesEndRef}/> {/*Dummy div for auto-scroll*/}
             </div>
             <form onSubmit={handleSubmit}>
+                <RoomMainFileUpload/>
                 <input type="text" id="inputBox" name="inputBox" autoComplete="off"/>
                 <button type="submit">
                     <img src={send} alt="send button"/>
