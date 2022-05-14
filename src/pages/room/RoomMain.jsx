@@ -11,8 +11,6 @@ import RoomMainFileUpload from "./RoomMainFileUpload";
 function handleSubmit(event) {
     event.preventDefault();
     const msg = getValueFromEvent(event, 'inputBox');
-    console.log(getValueFromEvent(event, 'addImageReal'));
-    console.log(msg)
     if (msg.trim() === '') {
         toast.warn("Please enter a message");
         return;
@@ -40,17 +38,17 @@ export default function RoomMain({nickName, roomId}) {
         <main>
             <div id="messages-panel">
                 <div id="message-container">
-                    </div>
                     { //TODO: change index to an actual key
                         msgArr.map(elem => <RoomMainMessage key={uuid()}
                                                             isFromUser={elem.isFromUser}
                                                             msg={elem.msg}
                                                             time={elem.time}/>)
                     }
-                    <div ref={messagesEndRef}/> {/*Dummy div for auto-scroll*/}
+                <div ref={messagesEndRef}/> {/*Dummy div for auto-scroll*/}
+                </div>
             </div>
             <form onSubmit={handleSubmit}>
-                <RoomMainFileUpload/>
+                <RoomMainFileUpload msgCallback={Socket.sendMsgToSocket}/>
                 <input type="text" id="inputBox" name="inputBox" autoComplete="off"/>
                 <button type="submit">
                     <img src={send} alt="send button"/>

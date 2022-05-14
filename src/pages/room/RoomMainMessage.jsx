@@ -27,12 +27,15 @@ export default function RoomMainMessage({isFromUser, msg, time}) {
 function MessageInner({message}) {
     const [msgCode, msgContent] = message.split(' ');
     console.log(msgCode);
-    if (msgCode === '!?/img')
+    if (msgCode === '!?/img'){
+        const imgAddress = localStorage.getItem(msgContent) ?? msgContent;
+
         return (
-            <a href={msgContent} download target='_blank'>
-                <img src={msgContent} alt="img"/>
+            <a href={msgContent} download target='_blank' rel="noreferrer">
+                <img src={imgAddress} alt="img"/>
             </a>
         )
+    }
     else
         return <p>{message}</p>
 }

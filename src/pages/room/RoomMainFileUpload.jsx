@@ -1,9 +1,8 @@
-import {useState} from "react";
 import Api from "../../utils/Api";
 
-export default function RoomMainFileUpload(){
+export default function RoomMainFileUpload({msgCallback}){
 
-    function onFileUpload(event) {
+    async function onFileUpload(event) {
         const selectedFile = event.target.files[0]
         const formData = new FormData();
 
@@ -12,8 +11,9 @@ export default function RoomMainFileUpload(){
             selectedFile,
             selectedFile.name
         );
-        console.log(selectedFile);
-        Api.fileUpload(formData).then(console.log);
+        const {fileUri} = await Api.fileUpload(formData)
+        localStorage.setItem(fileUri,URL.createObjectURL(selectedFile));
+        msgCallback('!?/img '+ fileUri);
     }
 
     return <>

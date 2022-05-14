@@ -13,7 +13,7 @@
           color: $color
 
 .RoomMainMessage
-  @include base.flex(100%, 5vh, row)
+  @include base.flex(100%, auto, row)
   @include hoverTip(base.$light-color)
   justify-content: flex-start
   padding: 0 10px
@@ -24,9 +24,13 @@
     @include hoverTip(base.$dark-color)
 
   .RoomMainMessageInner
-    @include base.flex(auto, 5vh, row)
     @include base.border-radius
     padding: 5px 10px
+
+    img
+      max-width: 50vw
+      max-height: 50vh
+      @include base.border-radius
 
     &.RoomMainMessageInner-user
       background-color: base.$dark-color
