@@ -84,4 +84,25 @@ export default class Api {
         console.debug('queryChatters response:', response);
         return response;
     }
+
+    static async fileUpload(file){
+        console.debug('fileUpload payload:', file);
+        const {data: response} = await axios.post(Api.url + 'file/upload', file);
+        console.debug('fileUpload response:', response);
+        return response;
+    }
+
+    static async multiFileUpload(files){
+        console.debug('multiFileUpload payload:', files);
+        const {data: response} = await axios.post(Api.url + 'file/uploadMultipleFiles', files);
+        console.debug('multiFileUpload response:', response);
+        return response;
+    }
+
+    static async downloadFile(filedId){
+        console.debug('downloadFile payload:', filedId);
+        const {data: response} = await axios.post(Api.url + 'file/download/' + filedId.toString());
+        console.debug('downloadFile response:', response);
+        return response;
+    }
 }
