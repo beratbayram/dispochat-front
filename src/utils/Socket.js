@@ -24,6 +24,7 @@ export default class Socket {
     }
 
     static sendMsgToSocket(msg) {
+        console.log("fuck u");
         Socket.stompClient.send("/app/chat/" + Socket.fingerprint, {}, JSON.stringify({
             message: msg,
             senderUniqueKey: Socket.fingerprint
@@ -41,6 +42,4 @@ export default class Socket {
         }
         Socket.setMsgArr([...Socket.msgArr, message])
     }
-
-
 }

@@ -1,5 +1,6 @@
 import './RoomMain.sass';
-import send from '../../assets/send.png'
+import uuid from 'react-uuid';
+import send from '../../assets/send.png';
 import {getValueFromEvent} from "../../utils/utils";
 import RoomMainMessage from "./RoomMainMessage";
 import Socket from "../../utils/Socket";
@@ -37,17 +38,14 @@ export default function RoomMain({nickName, roomId}) {
         <main>
             <div id="messages-panel">
                 <div id="message-container">
-                    <div style={{height:"5000px"}}>
                     </div>
                     { //TODO: change index to an actual key
-                        msgArr.map((elem, index) => <RoomMainMessage key={index}
-                                                                     isFromUser={elem.isFromUser}
-                                                                     msg={elem.msg}
-                                                                     time={elem.time}/>)
+                        msgArr.map(elem => <RoomMainMessage key={uuid()}
+                                                            isFromUser={elem.isFromUser}
+                                                            msg={elem.msg}
+                                                            time={elem.time}/>)
                     }
-                    <div ref={messagesEndRef}/>
-                    {/*Dummy div for auto-scroll*/}
-                </div>
+                    <div ref={messagesEndRef}/> {/*Dummy div for auto-scroll*/}
             </div>
             <form onSubmit={handleSubmit}>
                 <input type="text" id="inputBox" name="inputBox" autoComplete="off"/>

@@ -8,11 +8,11 @@ export default function RoomMainMessage({isFromUser, msg, time}) {
     useEffect(() => {
         if (msg === '!?/kill'){
             navigate('/');
-            toast.success("The Room is killed by the peer!");
+            toast.warn("The Room is killed by the peer!");
         }
     })
     return (
-        <div className={'RoomMainMessage ' + (isFromUser ? 'RoomMainMessage-user' : null)}>
+        <div className={'RoomMainMessage ' + (isFromUser ? 'RoomMainMessage-user' : '')}>
             <div
                 className={'RoomMainMessageInner ' + (isFromUser ? 'RoomMainMessageInner-user' : 'RoomMainMessageInner-notUser')}>
                 <p>{msg}</p>
