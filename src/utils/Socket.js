@@ -22,6 +22,9 @@ export default class Socket {
         });
         Socket.stompClient.activate();
     }
+    static disconnect(){
+        Socket.stompClient.disconnect();
+    }
 
     static sendMsgToSocket(msg) {
         Socket.stompClient.send("/app/chat/" + Socket.fingerprint, {}, JSON.stringify({

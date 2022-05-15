@@ -29,9 +29,11 @@ export default function RoomMainMessage({isFromUser, msg, time}) {
 }
 
 function MessageInner({message}) {
+    const wordArr = message.split(' ')
+    wordArr.shift();
     const [msgCode, msgContent, filename, filesize] = message.split(' ');
 
-    if (msgCode === '!?/text') return <p>{msgContent}</p>
+    if (msgCode === '!?/text') return <p>{wordArr.join(' ')}</p>
 
     const fileAddress = sessionStorage.getItem(msgContent) ?? msgContent;
     sessionStorage.setItem(msgContent, fileAddress);

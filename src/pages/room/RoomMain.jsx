@@ -26,7 +26,8 @@ export default function RoomMain({nickName, roomId}) {
     Socket.msgArr = msgArr
 
     useEffect(() => {
-        Socket.connectToChat()
+        Socket.connectToChat();
+        return Socket.disconnect;
     }, []);
     useEffect(() => {
         messagesEndRef.current?.scrollIntoView();

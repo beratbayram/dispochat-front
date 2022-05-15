@@ -2,7 +2,7 @@ import axios from "axios";
 import FingerprintJS from '@fingerprintjs/fingerprintjs-pro';
 import {toast} from "react-toastify";
 
-const DEV_MODE = true;
+const DEV_MODE = false;
 
 export async function generateGeoIp() {
     if(DEV_MODE) return {
