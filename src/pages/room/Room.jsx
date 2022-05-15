@@ -14,7 +14,7 @@ export default function Room() {
     return (
         <div id="Room">
             <RoomAside nickName={nickName} roomId={roomId} isOwner={isOwner}/>
-            <RoomMain nickName={nickName} roomId={roomId} />
+            <RoomMain nickName={nickName} roomId={roomId} isOwner={isOwner}/>
         </div>
     )
 }

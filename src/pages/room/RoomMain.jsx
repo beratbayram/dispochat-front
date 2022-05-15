@@ -8,6 +8,9 @@ import {useEffect, useRef, useState} from "react";
 import RoomMainFileUpload from "../media/RoomMainFileUpload";
 import RoomMainVoiceRecorder from "../media/RoomMainVoiceRecorder";
 
+import RoomAside from "./RoomAside";
+import './RoomAside.mobileBanner.sass';
+
 function handleSubmit(event) {
     event.preventDefault();
     const msg = getValueFromEvent(event, 'inputBox');
@@ -17,7 +20,7 @@ function handleSubmit(event) {
     event.target[5].value = '';
 }
 
-export default function RoomMain({nickName, roomId}) {
+export default function RoomMain({nickName, roomId,isOwner}) {
     //msg: { isFromUser: Boolean,msg: string,time: string}
     const [msgArr, setMsgArr] = useState([]);
     const messagesEndRef = useRef(null);
@@ -33,8 +36,9 @@ export default function RoomMain({nickName, roomId}) {
         messagesEndRef.current?.scrollIntoView();
     }, [msgArr]);
 
-    return (
+    return <>
         <main>
+            <RoomAside mobileBanner nickName={nickName} roomId={roomId} isOwner={isOwner}/>
             <div id="messages-panel">
                 <div id="message-container">
                     { //TODO: change index to an actual key
@@ -57,5 +61,5 @@ export default function RoomMain({nickName, roomId}) {
                 </button>
             </form>
         </main>
-    )
+    </>
 }

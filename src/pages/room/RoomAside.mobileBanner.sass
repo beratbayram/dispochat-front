@@ -1,0 +1,30 @@
+@use '../../base'
+
+aside.mobileBanner
+  flex-direction: row
+  height: 20vh
+  width: 100%
+  border: none
+  #aside-top
+    width: 25%
+    height: 100%
+    justify-content: center
+  #aside-middle
+    width: 100%
+    height: 100%
+    justify-content: center
+  #aside-bottom
+    width: 25%
+    height: 100%
+    justify-content: center
+    button
+      width: 100% !important
+  table
+    tr:first-child
+      td
+        display: none
+    p
+      font-size: 10px !important
+    tr#nickNames
+      p
+        font-size: 15px !important

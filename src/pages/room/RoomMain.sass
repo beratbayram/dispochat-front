@@ -2,7 +2,7 @@
 
 #Room
   main
-    @include base.flex(70%, 100%)
+    @include base.flex(100%, 100%)
     padding: 10px
 
     #messages-panel
@@ -31,7 +31,7 @@
       justify-content: space-evenly
 
       input
-        @include base.flex(90%, 60%)
+        @include base.flex(90%, 5vh)
         @include base.border
         @include base.border-radius
         background-color: black
@@ -56,7 +56,7 @@
             -webkit-box-shadow: 0 0 0 30px black inset
 
       > button
-        @include base.flex(5%, 70%)
+        @include base.flex(5%, 5vh)
         background-color: transparent
         border: none
 

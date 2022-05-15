@@ -10,7 +10,7 @@ async function checkGuests(roomId, setChatters, ToastifyButtons) {
     await toastifyPromiseConfirm(Api.fetchRequester(), ToastifyButtons);
 }
 
-export default function RoomAside({nickName, roomId,isOwner}) {
+export default function RoomAside({nickName, roomId,isOwner,mobileBanner}) {
     const navigate = useNavigate();
     const [isCheckGuestsOpen,setIsCheckGuestsOpen] = useState(!!isOwner);
     const [chatters, setChatters] = useState(null)
@@ -55,7 +55,7 @@ export default function RoomAside({nickName, roomId,isOwner}) {
     }
 
     return (
-        <aside>
+        <aside className={mobileBanner ? "mobileBanner" : ""}>
             <div id="aside-top">
                 <img src={logo} onClick={handleKillSwitch} alt="logo"/>
                 <h1><em>Dispo</em>Chat</h1>
