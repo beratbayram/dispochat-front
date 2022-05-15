@@ -11,18 +11,18 @@
 
       #message-container
         @include base.flex(100%, auto)
-        overflow-y: scroll
+        overflow-y: auto
         justify-content: unset
         scrollbar-color: base.$dark-color transparent
 
-    #addImage
+    #addImage,#addRecording
       background: base.$dark-color
       position: relative
-      width: 8%
+      width: 5vh
       font-size: 50px
       text-align: center
-      padding: 0
-      height: 60%
+      padding: 2px
+      height: 5vh
       margin-right: 10px
       @include base.border-radius
 
@@ -44,7 +44,7 @@
           outline: none
           color: base.$light-color
 
-        &#addImageReal
+        &.addImageReal
             display: none
 
         //transparency doesn't work here"
@@ -55,7 +55,7 @@
           &:hover, &:focus, &:active
             -webkit-box-shadow: 0 0 0 30px black inset
 
-      button
+      > button
         @include base.flex(5%, 70%)
         background-color: transparent
         border: none

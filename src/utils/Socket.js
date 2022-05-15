@@ -24,7 +24,6 @@ export default class Socket {
     }
 
     static sendMsgToSocket(msg) {
-        console.log("fuck u");
         Socket.stompClient.send("/app/chat/" + Socket.fingerprint, {}, JSON.stringify({
             message: msg,
             senderUniqueKey: Socket.fingerprint
@@ -34,7 +33,9 @@ export default class Socket {
 
     static sendMsgToScreen(isFromUser, msg) {
         const date = new Date();
-        const time = `${date.getHours()}:${date.getMinutes()}`;
+        let minutes = date.getMinutes();
+        if(minutes < 10) minutes = `0${minutes}`;
+        const time = `${date.getHours()}:${minutes}`;
         const message = {
             isFromUser,
             msg,

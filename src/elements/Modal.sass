@@ -9,6 +9,7 @@
   background-color: rgba(0, 0, 0, 0.8)
 
   .Modal-inner
+    min-width: 350px
     @include base.flex(40%, auto)
     @include base.border-radius()
     background-color: base.$dark-color
@@ -18,7 +19,6 @@
       padding: 10px
       border-bottom: 1px solid base.$light-color
       justify-content: space-between
-      color: base.$light-color
       button
         @include base.button(30px, 30px)
         padding: 0
@@ -27,6 +27,7 @@
         border-color: base.$dark-color
     main
       @include base.flex(100%,auto)
+      width: 100% !important
       padding: 10px
       form
         @include base.flex(100%,auto)

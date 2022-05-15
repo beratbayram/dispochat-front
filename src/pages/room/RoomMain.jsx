@@ -5,18 +5,16 @@ import {getValueFromEvent} from "../../utils/utils";
 import RoomMainMessage from "./RoomMainMessage";
 import Socket from "../../utils/Socket";
 import {useEffect, useRef, useState} from "react";
-import {toast} from "react-toastify";
-import RoomMainFileUpload from "./RoomMainFileUpload";
+import RoomMainFileUpload from "../media/RoomMainFileUpload";
+import RoomMainVoiceRecorder from "../media/RoomMainVoiceRecorder";
 
 function handleSubmit(event) {
     event.preventDefault();
     const msg = getValueFromEvent(event, 'inputBox');
-    if (msg.trim() === '') {
-        toast.warn("Please enter a message");
-        return;
-    }
-    Socket.sendMsgToSocket(msg);
-    event.target[2].value = '';
+    if (msg.trim() === '') return;
+    Socket.sendMsgToSocket('!?/text ' + msg);
+    console.log(event.target)
+    event.target[5].value = '';
 }
 
 export default function RoomMain({nickName, roomId}) {
@@ -44,11 +42,14 @@ export default function RoomMain({nickName, roomId}) {
                                                             msg={elem.msg}
                                                             time={elem.time}/>)
                     }
-                <div ref={messagesEndRef}/> {/*Dummy div for auto-scroll*/}
+                    <div ref={messagesEndRef}/>
+                    {/*Dummy div for auto-scroll*/}
                 </div>
             </div>
             <form onSubmit={handleSubmit}>
                 <RoomMainFileUpload msgCallback={Socket.sendMsgToSocket}/>
+                <RoomMainFileUpload msgCallback={Socket.sendMsgToSocket} image/>
+                <RoomMainVoiceRecorder msgCallback={Socket.sendMsgToSocket}/>
                 <input type="text" id="inputBox" name="inputBox" autoComplete="off"/>
                 <button type="submit">
                     <img src={send} alt="send button"/>

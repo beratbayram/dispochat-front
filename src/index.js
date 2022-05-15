@@ -5,7 +5,7 @@ import App from './App';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <App onContextMenu={e=>e.preventDefault()}/>
   </React.StrictMode>,
   document.getElementById('root')
 );
